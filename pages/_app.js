@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 
 import {
   KnockFeedProvider,
@@ -6,13 +6,13 @@ import {
   NotificationFeedPopover,
   useKnockFeed,
 } from "@knocklabs/react-notification-feed";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function MyApp({ Component, pageProps }) {
   const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), [])
+  useEffect(() => setReady(true), []);
   if (!ready) {
-    return <Component {...pageProps} />
+    return <Component {...pageProps} />;
   }
   return (
     <KnockFeedProvider
@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
     >
       <Component {...pageProps} />
     </KnockFeedProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
