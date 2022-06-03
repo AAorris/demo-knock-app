@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Knock } from "@knocklabs/client";
-
-import { useCurrentUser } from "./hooks";
+import Knock from "@knocklabs/client";
+import { useMemo } from "react";
 
 const workflowLabels = {
-  comment: "New comments",
-  like: "Document likes",
-  alert: "Alerts",
+  "usage-warning": "Usage Warning",
 };
 
 const channelTypeLabels = {
-  sms: "SMS",
-  email: "Email",
-  push: "Push",
+  in_app_feed: "In-app",
 };
 
+
 const PreferenceCenter = () => {
-  const { user } = useCurrentUser();
+  const user = useMemo(() => ({ id: "Alice" }), []);
   const [preferences, setPreferences] = useState();
 
   // Setup our Knock client
   const knockClient = useMemo(() => {
-    const knockClient = new Knock(process.env.KNOCK_PUBLIC_API_KEY);
+    const knockClient = new Knock(process.env.NEXT_PUBLIC_KNOCK_KEY);
     knockClient.authenticate(user.id);
     return knockClient;
   }, [user]);
@@ -45,7 +41,9 @@ const PreferenceCenter = () => {
       },
     };
 
-    const preferences = await knockClient.preferences.set(preferenceUpdate);
+    const preferences = await knockClient.preferences.set({
+      workflows: preferenceUpdate,
+    });
 
     // Set the updated preferences
     setPreferences(preferences);
@@ -58,52 +56,62 @@ const PreferenceCenter = () => {
 
   return (
     <div className="preferences">
-      <h2>Preferences</h2>
+      {Object.keys(preferences.workflows || workflowLabels).map(
+        (workflowKey) => {
+          const workflowChannelPreferences = preferences?.workflows
+            ? preferences.workflows[workflowKey].channel_types
+            : { in_app_feed: true };
 
-      {Object.keys(preferences.workflows).map((workflowKey) => {
-        const workflowChannelPreferences =
-          preferences.workflows[workflowKey].channel_types;
+          return (
+            <div className="preferences__row" key={workflowKey}>
+              <div className="preferences__row-workflow">
+                {workflowLabels[workflowKey]}
+              </div>
 
-        return (
-          <div className="preferences__row" key={workflowKey}>
-            <div className="preferences__row-workflow">
-              {workflowLabels[workflowKey]}
+              <div className="preferences__row-channel-types">
+                {Object.keys(workflowChannelPreferences).map((channelType) => {
+                  // Loop over all the channel types and render a checkbox and a label
+                  // per channel type setting in the workflow.
+                  const preferenceSetting =
+                    workflowChannelPreferences[channelType];
+
+                  return (
+                    <div
+                      className="preferences__row-channel-type"
+                      key={channelType}
+                    >
+                      <label>
+                        {channelTypeLabels[channelType]}
+
+                        <input
+                          type="checkbox"
+                          checked={preferenceSetting}
+                          onChange={() =>
+                            onPreferenceChange(
+                              workflowKey,
+                              channelType,
+                              !preferenceSetting
+                            )
+                          }
+                        />
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-
-            <div className="preferences__row-channel-types">
-              {Object.keys(workflowChannelPreferences).map((channelType) => {
-                // Loop over all the channel types and render a checkbox and a label
-                // per channel type setting in the workflow.
-                const preferenceSetting =
-                  workflowChannelPreferences[channelType];
-
-                return (
-                  <div
-                    className="preferences__row-channel-type"
-                    key={channelType}
-                  >
-                    <label>
-                      {channelTypeLabels[channelType]}
-
-                      <input
-                        type="checkbox"
-                        value={preferenceSetting}
-                        onChange={() =>
-                          onPreferenceChange(
-                            workflowKey,
-                            channelType,
-                            !preferenceSetting
-                          )
-                        }
-                      />
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
+          );
+        }
+      )}
     </div>
   );
 };
+
+const PreferenceCenterClient = () => {
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  if (!ready) return <></>;
+  return <PreferenceCenter />;
+};
+
+export default PreferenceCenterClient;
