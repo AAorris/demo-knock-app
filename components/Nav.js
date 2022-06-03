@@ -1,5 +1,6 @@
 import Link from "next/link";
 import NotificationFeed from "./NotificationFeed";
+import NotificationToaster from "./NotificationToaster";
 import Avatar from "./Avatar";
 import styles from "../styles/Home.module.css";
 
@@ -14,6 +15,7 @@ export default function Nav() {
       </section>
       <section>
         <NotificationFeed />
+        <NotificationToaster />
         <Avatar />
       </section>
     </nav>
