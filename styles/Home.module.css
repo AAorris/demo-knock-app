@@ -9,13 +9,11 @@
 }
 
 .main {
-  min-height: 100vh;
+  height: calc(100vh - 85px - 73px);
   padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .footer {
@@ -25,6 +23,7 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  height: 85px;
 }
 
 .footer a {
@@ -49,17 +48,19 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
+  letter-spacing: -0.05em;
 }
 
 .description {
   margin: 4rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
+}
+
+.subtitle {
+  color: #555;
+  margin: 0;
+  letter-spacing: -0.025em;
 }
 
 .code {
@@ -80,22 +81,47 @@
 }
 
 .card {
-  margin: 1rem;
-  padding: 1.5rem;
+  padding: 0.75rem 1.5em;
   text-align: left;
   color: inherit;
+  background: #444;
+  color: #eee;
   text-decoration: none;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
 }
 
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #fff;
+}
+
+.actions {
+  padding: 20px 0;
+}
+
+.cta {
+  background: #0070f3;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  height: 40px;
+  width: max-content;
+  padding: 0 1em;
+  cursor: pointer;
+}
+
+.cta:hover,
+.cta:focus,
+.cta:active {
+  background: #0059c0;
+}
+
+.cta:active {
+  background: #003283;
 }
 
 .card h2 {
@@ -112,6 +138,31 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+.cards {
+  display: flex;
+  gap: 10px;
+  padding: 20px 0;
+  border-bottom: 1px solid #aaa;
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid #aaa;
+}
+
+.nav > section {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.nav :first-child a {
+  font-weight: 600;
 }
 
 @media (max-width: 600px) {
