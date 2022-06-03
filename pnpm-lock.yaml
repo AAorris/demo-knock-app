@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@knocklabs/client': ^0.5.10
   '@knocklabs/node': ^0.4.6
-  '@knocklabs/react-notification-feed': ^0.5.9
+  '@knocklabs/react-notification-feed': ^0.5.10
   '@types/node': ^17.0.12
   '@types/react': ^18.0.10
   eslint: 8.16.0
@@ -18,7 +18,7 @@ specifiers:
 dependencies:
   '@knocklabs/client': 0.5.10_react@18.1.0
   '@knocklabs/node': 0.4.6
-  '@knocklabs/react-notification-feed': 0.5.9_ef5jwxihqo6n7gxfmzogljlgcm
+  '@knocklabs/react-notification-feed': 0.5.10_ef5jwxihqo6n7gxfmzogljlgcm
   next: 12.1.6_ef5jwxihqo6n7gxfmzogljlgcm
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
@@ -101,8 +101,8 @@ packages:
       - debug
     dev: false
 
-  /@knocklabs/react-notification-feed/0.5.9_ef5jwxihqo6n7gxfmzogljlgcm:
-    resolution: {integrity: sha512-px7+jVEtwVv+r7TigRwE5wJWv9uWi4NQAF90uEc2+GJ19U5s8N8Dd95Tw0Le8RC0Vnfr1Mrf7J9bnotWUTtKUQ==}
+  /@knocklabs/react-notification-feed/0.5.10_ef5jwxihqo6n7gxfmzogljlgcm:
+    resolution: {integrity: sha512-t6Acgf7cMH+rN+XT9zfNzevLYhwBXYaYI5hYBdrvvt1Et+wQTcmQVYc/rceKOa0EBkuVsNDvGwtjhCmz/J3CFA==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'

@@ -11,7 +11,7 @@
   "dependencies": {
     "@knocklabs/client": "^0.5.10",
     "@knocklabs/node": "^0.4.6",
-    "@knocklabs/react-notification-feed": "^0.5.9",
+    "@knocklabs/react-notification-feed": "^0.5.10",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
