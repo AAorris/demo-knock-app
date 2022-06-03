@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Knock } from "@knocklabs/client";
 
 import { useCurrentUser } from "./hooks";
@@ -38,13 +38,11 @@ const PreferenceCenter = () => {
 
   const onPreferenceChange = async (workflowKey, channelType, setting) => {
     const preferenceUpdate = {
-      {
-        [workflowKey]: {
-          channel_types: {
-            [channelType]: setting
-          }
-        }
-      }
+      [workflowKey]: {
+        channel_types: {
+          [channelType]: setting,
+        },
+      },
     };
 
     const preferences = await knockClient.preferences.set(preferenceUpdate);
@@ -55,7 +53,7 @@ const PreferenceCenter = () => {
 
   // Display our UI
   if (!preferences) {
-    return <Spinner />;
+    return <span>(Loading ...)</span>;
   }
 
   return (
@@ -94,7 +92,7 @@ const PreferenceCenter = () => {
                           onPreferenceChange(
                             workflowKey,
                             channelType,
-                            !preferenceSetting,
+                            !preferenceSetting
                           )
                         }
                       />
