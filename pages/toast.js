@@ -19,6 +19,7 @@ export default function Home() {
       </Head>
 
       <div className={styles.feed}>
+        <NotificationFeed />
         <NotificationToaster />
       </div>
       <main className={styles.main}>

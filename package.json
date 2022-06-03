@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@knocklabs/client": "^0.5.10",
     "@knocklabs/node": "^0.4.6",
     "@knocklabs/react-notification-feed": "^0.5.9",
     "next": "12.1.6",
