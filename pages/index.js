@@ -8,7 +8,7 @@ export default function Home() {
   const sendNotification = useDebouncedCallback(() => {
     const usage = Math.round(Math.random() * 10 + 80)
     fetch(`/api/notify?percentUsage=${usage}`, {'method': 'POST'})
-  }, 1000)
+  }, 500)
   return (
     <div className={styles.container}>
       <Head>
