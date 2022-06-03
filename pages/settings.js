@@ -1,9 +1,16 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useDebouncedCallback } from "use-debounce";
+
 import styles from '../styles/Home.module.css'
 import PreferenceCenter from '../components/NotificationPrefs';
+import Nav from '../components/Nav';
 
-export default function Home() {
+export default function Settings() {
+  const sendNotification = useDebouncedCallback(() => {
+    const usage = Math.round(Math.random() * 10 + 80);
+    fetch(`/api/notify?percentUsage=${usage}`, { method: "POST" });
+  }, 500);
   return (
     <div className={styles.container}>
       <Head>
@@ -12,11 +19,28 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Nav />
+
       <main className={styles.main}>
         <h1 className={styles.title}>
           Notification Settings
         </h1>
-        <PreferenceCenter />
+        <h2 className={styles.subtitle}>
+          Enable or disable notifications
+        </h2>
+        <p>
+          Toggle notifications on and off using the checkbox
+        </p>
+        <section className={styles.cards}>
+          <PreferenceCenter />
+        </section>
+
+        <section className={styles.actions}>
+          <h3 className={styles.subtitle}>Try it out</h3>
+          <br />
+          <button className={styles.cta} onClick={sendNotification}>Send a fake usage warning notification</button>
+        </section>
+        
       </main>
 
       <footer className={styles.footer}>

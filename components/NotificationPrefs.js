@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Knock from "@knocklabs/client";
 import { useMemo } from "react";
+import styles from "../styles/Prefs.module.css";
 
 const workflowLabels = {
   "usage-warning": "Usage Warning",
 };
 
 const channelTypeLabels = {
-  in_app_feed: "In-app",
+  in_app_feed: "Web notifications",
 };
-
 
 const PreferenceCenter = () => {
   const user = useMemo(() => ({ id: "Alice" }), []);
@@ -55,7 +55,7 @@ const PreferenceCenter = () => {
   }
 
   return (
-    <div className="preferences">
+    <div className={styles.container}>
       {Object.keys(preferences.workflows || workflowLabels).map(
         (workflowKey) => {
           const workflowChannelPreferences = preferences?.workflows
@@ -63,12 +63,12 @@ const PreferenceCenter = () => {
             : { in_app_feed: true };
 
           return (
-            <div className="preferences__row" key={workflowKey}>
-              <div className="preferences__row-workflow">
+            <fieldset className={styles.row} key={workflowKey}>
+              <legend className={styles.rowWorkflow}>
                 {workflowLabels[workflowKey]}
-              </div>
+              </legend>
 
-              <div className="preferences__row-channel-types">
+              <div className={styles.rowChannelTypes}>
                 {Object.keys(workflowChannelPreferences).map((channelType) => {
                   // Loop over all the channel types and render a checkbox and a label
                   // per channel type setting in the workflow.
@@ -76,30 +76,28 @@ const PreferenceCenter = () => {
                     workflowChannelPreferences[channelType];
 
                   return (
-                    <div
-                      className="preferences__row-channel-type"
-                      key={channelType}
-                    >
-                      <label>
+                    <div className={styles.rowChannelType} key={channelType}>
+                      <label className={styles.label}>
                         {channelTypeLabels[channelType]}
-
-                        <input
-                          type="checkbox"
-                          checked={preferenceSetting}
-                          onChange={() =>
-                            onPreferenceChange(
-                              workflowKey,
-                              channelType,
-                              !preferenceSetting
-                            )
-                          }
-                        />
                       </label>
+
+                      <input
+                        type="checkbox"
+                        checked={preferenceSetting}
+                        className={styles.input}
+                        onChange={() =>
+                          onPreferenceChange(
+                            workflowKey,
+                            channelType,
+                            !preferenceSetting
+                          )
+                        }
+                      />
                     </div>
                   );
                 })}
               </div>
-            </div>
+            </fieldset>
           );
         }
       )}
