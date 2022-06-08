@@ -8,7 +8,7 @@ import Nav from "../components/Nav";
 import signJwt from "../lib/knockJwt";
 
 
-export default function Settings() {
+export default function Settings(props) {
   const sendNotification = useDebouncedCallback(() => {
     const usage = Math.round(Math.random() * 10 + 80);
     fetch(`/api/notify?percentUsage=${usage}`, { method: "POST" });
@@ -57,7 +57,7 @@ export default function Settings() {
         <h2 className={styles.subtitle}>Enable or disable notifications</h2>
         <p>Toggle notifications on and off using the checkbox</p>
         <section className={styles.cards}>
-          <PreferenceCenter />
+          <PreferenceCenter userToken={props.userToken} />
         </section>
 
         <section className={styles.actions}>

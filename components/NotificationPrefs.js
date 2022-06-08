@@ -11,16 +11,16 @@ const channelTypeLabels = {
   in_app_feed: "Web notifications",
 };
 
-const PreferenceCenter = () => {
+const PreferenceCenter = ({ userToken=undefined }) => {
   const user = useMemo(() => ({ id: "Alice" }), []);
   const [preferences, setPreferences] = useState();
 
   // Setup our Knock client
   const knockClient = useMemo(() => {
     const knockClient = new Knock(process.env.NEXT_PUBLIC_KNOCK_KEY);
-    knockClient.authenticate(user.id);
+    knockClient.authenticate(user.id, userToken);
     return knockClient;
-  }, [user]);
+  }, [user, userToken]);
 
   // Read the preferences for the current user
   useEffect(() => {
