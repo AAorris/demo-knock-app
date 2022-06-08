@@ -105,11 +105,11 @@ const PreferenceCenter = ({ userToken=undefined }) => {
   );
 };
 
-const PreferenceCenterClient = () => {
+const PreferenceCenterClient = ({ userToken }) => {
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
   if (!ready) return <></>;
-  return <PreferenceCenter />;
+  return <PreferenceCenter userToken={userToken} />;
 };
 
 export default PreferenceCenterClient;
