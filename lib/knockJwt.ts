@@ -1,15 +1,20 @@
 import AES from 'aes-encryption';
 import jwt from "jsonwebtoken";
-import encrypted from "./knockSigningKey";
+import testingKey from "./knockSigningKeyTesting";
+import productionKey from "./knockSigningKeyProduction";
 
 const aes = new AES();
 aes.setSecretKey(process.env.APP_AES_SECRET_KEY);
 
-const signingKey = aes.decrypt(encrypted);
+let signingKey: string;
+if (process.env.KNCOK_API_KEY?.startsWith('sk_test')) {
+  signingKey = aes.decrypt(testingKey);
+} else {
+  signingKey = aes.decrypt(productionKey);
+}
 
 export default function signJwt() {
   const currentTime = Math.floor(Date.now() / 1000);
-  console.log(signingKey);
   return jwt.sign(
     {
       sub: "Alice",
