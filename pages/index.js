@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useDebouncedCallback } from "use-debounce";
 import Nav from "../components/Nav";
 import styles from "../styles/Home.module.css";
+import signJwt from "../lib/knockJwt";
 
-export default function Home() {
+function Home() {
   const sendNotification = useDebouncedCallback(() => {
     const usage = Math.round(Math.random() * 10 + 80);
     fetch(`/api/notify?percentUsage=${usage}`, { method: "POST" });
@@ -90,3 +91,14 @@ export default function Home() {
     </div>
   );
 }
+
+export async function getServerSideProps() {
+  const userToken = signJwt()
+  return {
+    props: {
+      userToken
+    }
+  }
+}
+
+export default Home;

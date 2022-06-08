@@ -12,6 +12,9 @@
     "@knocklabs/client": "^0.5.10",
     "@knocklabs/node": "^0.4.7",
     "@knocklabs/react-notification-feed": "^0.5.10",
+    "aes-encryption": "^1.0.4",
+    "csstype": "^3.0.10",
+    "jsonwebtoken": "^8.5.1",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -19,6 +22,7 @@
     "use-debounce": "^8.0.1"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.10",
     "eslint": "8.16.0",
