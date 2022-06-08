@@ -4,6 +4,8 @@ import { useDebouncedCallback } from "use-debounce";
 import Nav from "../components/Nav";
 import NotificationToaster from "../components/NotificationToaster";
 import styles from "../styles/Home.module.css";
+import signJwt from "../lib/knockJwt";
+
 
 export default function Home() {
   const sendNotification = useDebouncedCallback(() => {
@@ -74,4 +76,13 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const userToken = signJwt()
+  return {
+    props: {
+      userToken
+    }
+  }
 }

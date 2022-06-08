@@ -5,6 +5,8 @@ import { useDebouncedCallback } from "use-debounce";
 import styles from "../styles/Home.module.css";
 import PreferenceCenter from "../components/NotificationPrefs";
 import Nav from "../components/Nav";
+import signJwt from "../lib/knockJwt";
+
 
 export default function Settings() {
   const sendNotification = useDebouncedCallback(() => {
@@ -81,4 +83,13 @@ export default function Settings() {
       </footer>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const userToken = signJwt()
+  return {
+    props: {
+      userToken
+    }
+  }
 }
