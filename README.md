@@ -1,3 +1,7 @@
+# Demo Knock App
+
+A scrappy and unofficial demo of some of the features in [Knock.app](https://knock.app) using [NextJS](https://nextjs.org/)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
