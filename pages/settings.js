@@ -7,7 +7,6 @@ import PreferenceCenter from "../components/NotificationPrefs";
 import Nav from "../components/Nav";
 import signJwt from "../lib/knockJwt";
 
-
 export default function Settings(props) {
   const sendNotification = useDebouncedCallback(() => {
     const usage = Math.round(Math.random() * 10 + 80);
@@ -86,10 +85,10 @@ export default function Settings(props) {
 }
 
 export async function getServerSideProps() {
-  const userToken = signJwt()
+  const userToken = await signJwt();
   return {
     props: {
-      userToken
-    }
-  }
+      userToken,
+    },
+  };
 }

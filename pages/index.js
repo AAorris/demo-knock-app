@@ -93,12 +93,12 @@ function Home() {
 }
 
 export async function getServerSideProps() {
-  const userToken = signJwt()
+  const userToken = await signJwt();
   return {
     props: {
-      userToken
-    }
-  }
+      userToken,
+    },
+  };
 }
 
 export default Home;

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.107.0",
     "@knocklabs/client": "^0.5.10",
     "@knocklabs/node": "^0.4.7",
     "@knocklabs/react-notification-feed": "^0.5.10",

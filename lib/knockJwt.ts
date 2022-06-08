@@ -1,19 +1,49 @@
-import AES from 'aes-encryption';
+import AES from "aes-encryption";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { Readable } from "stream";
+
+const s3 = new S3Client({
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: process.env.BUCKETS_ID as string,
+    secretAccessKey: process.env.BUCKETS_SECRET as string,
+  },
+});
 import jwt from "jsonwebtoken";
-import testingKey from "./knockSigningKeyTesting";
-import productionKey from "./knockSigningKeyProduction";
 
 const aes = new AES();
 aes.setSecretKey(process.env.APP_AES_SECRET_KEY);
 
-let signingKey: string;
-if (process.env.KNOCK_API_KEY?.startsWith('sk_test')) {
-  signingKey = aes.decrypt(testingKey);
+const streamToString = (stream: Readable): Promise<string> =>
+  new Promise((resolve, reject) => {
+    if (!stream) return undefined;
+    if (!stream.on) return undefined;
+    const chunks: Uint8Array[] = [];
+    stream.on("data", (chunk) => chunks.push(chunk));
+    stream.on("error", reject);
+    stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
+  });
+
+let cmd: GetObjectCommand;
+if (process.env.KNOCK_API_KEY?.startsWith("sk_test")) {
+  cmd = new GetObjectCommand({
+    Bucket: "knock-keys",
+    Key: "testing.txt",
+  });
 } else {
-  signingKey = aes.decrypt(productionKey);
+  cmd = new GetObjectCommand({
+    Bucket: "knock-keys",
+    Key: "production.txt",
+  });
 }
 
-export default function signJwt() {
+export default async function signJwt() {
+  const { Body } = await s3.send(cmd);
+  let encrypted = Buffer.from(
+    await streamToString(Body as Readable),
+    "base64"
+  ).toString();
+  let signingKey = aes.decrypt(encrypted);
   const currentTime = Math.floor(Date.now() / 1000);
   return jwt.sign(
     {
@@ -24,6 +54,6 @@ export default function signJwt() {
     signingKey,
     {
       algorithm: "RS256",
-    },
-  )
+    }
+  );
 }

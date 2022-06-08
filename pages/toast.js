@@ -6,7 +6,6 @@ import NotificationToaster from "../components/NotificationToaster";
 import styles from "../styles/Home.module.css";
 import signJwt from "../lib/knockJwt";
 
-
 export default function Home() {
   const sendNotification = useDebouncedCallback(() => {
     const usage = Math.round(Math.random() * 10 + 80);
@@ -79,10 +78,10 @@ export default function Home() {
 }
 
 export async function getServerSideProps() {
-  const userToken = signJwt()
+  const userToken = await signJwt();
   return {
     props: {
-      userToken
-    }
-  }
+      userToken,
+    },
+  };
 }
