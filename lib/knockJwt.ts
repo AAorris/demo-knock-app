@@ -7,7 +7,7 @@ const aes = new AES();
 aes.setSecretKey(process.env.APP_AES_SECRET_KEY);
 
 let signingKey: string;
-if (process.env.KNCOK_API_KEY?.startsWith('sk_test')) {
+if (process.env.KNOCK_API_KEY?.startsWith('sk_test')) {
   signingKey = aes.decrypt(testingKey);
 } else {
   signingKey = aes.decrypt(productionKey);
