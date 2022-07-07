@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import NotificationFeed from "./NotificationFeed";
 import Avatar from "./Avatar";
