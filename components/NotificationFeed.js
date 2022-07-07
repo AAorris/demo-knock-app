@@ -10,25 +10,11 @@ import {
 import "@knocklabs/react-notification-feed/dist/index.css";
 
 const NotificationFeed = () => {
-  const [ready, setReady] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const notifButtonRef = useRef(null);
-
-  useEffect(() => setReady(true), []);
-  if (!ready) return <></>;
-  return (
-    <>
-      <NotificationIconButton
-        ref={notifButtonRef}
-        onClick={(e) => setIsVisible(!isVisible)}
-      />
-      <NotificationFeedPopover
-        buttonRef={notifButtonRef}
-        isVisible={isVisible}
-        onClose={() => setIsVisible(false)}
-      />
-    </>
-  );
+  const { useFeedStore } = useKnockFeed();
+  const items = useFeedStore((store) => {
+    return store.metadata.total_count;
+  });
+  return <span>Total Count: {items}</span>;
 };
 
 export default NotificationFeed;

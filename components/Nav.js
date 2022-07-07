@@ -1,7 +1,13 @@
+import React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import NotificationFeed from "./NotificationFeed";
 import Avatar from "./Avatar";
 import styles from "../styles/Home.module.css";
+
+const NotificationFeed = dynamic(() => import("./NotificationFeed"), {
+  ssr: false,
+  loading: () => <>...</>,
+});
 
 export default function Nav() {
   return (
