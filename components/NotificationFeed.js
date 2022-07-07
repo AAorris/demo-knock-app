@@ -13,11 +13,14 @@ const NotificationFeed = () => {
   const [ready, setReady] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const notifButtonRef = useRef(null);
-
+  const { useFeedStore } = useKnockFeed();
+  const items = useFeedStore((store) => {
+    return store.metadata.total_count;
+  });
   useEffect(() => setReady(true), []);
   if (!ready) return <></>;
   return (
-    <>
+    <span data-itemcount={items}>
       <NotificationIconButton
         ref={notifButtonRef}
         onClick={(e) => setIsVisible(!isVisible)}
@@ -27,7 +30,7 @@ const NotificationFeed = () => {
         isVisible={isVisible}
         onClose={() => setIsVisible(false)}
       />
-    </>
+    </span>
   );
 };
 
