@@ -8,6 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const percentUsage = Number(req.query.percentUsage || 90);
+  foasda;
   try {
     const response = await knock.notify("usage-warning", {
       data: {
