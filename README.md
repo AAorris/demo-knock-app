@@ -4,8 +4,6 @@ A scrappy and unofficial demo of some of the features in [Knock.app](https://kno
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
 npm run dev
 # or
